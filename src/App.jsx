@@ -7,7 +7,7 @@ import DateInvite from "./components/DateInvite"
 export default function App() {
   const [fromName, setFromName] = useState("")
 
-  // pergunta o nome só uma vez
+
   useEffect(() => {
     const savedName = localStorage.getItem("fromName")
 

@@ -3,57 +3,61 @@ import emailjs from "@emailjs/browser"
 
 export default function DateInvite() {
   const [date, setDate] = useState("")
+  const [name, setName] = useState("")
   const [email, setEmail] = useState("")
-  const [fromName, setFromName] = useState("")
 
-  // carrega nome salvo
-  useEffect(() => {
-    const savedName = localStorage.getItem("fromName")
-
-    if (savedName) {
-      setFromName(savedName)
-    } else {
-      const name = prompt("Qual seu nome? 💌")
-
-      if (name) {
-        setFromName(name)
-        localStorage.setItem("fromName", name)
-      }
-    }
-  }, [])
-
-  // trocar nome manualmente (corrige erro de "ficou preso Lari")
-  function changeName() {
-    const newName = prompt("Novo nome? 💌")
-
-    if (newName) {
-      setFromName(newName)
-      localStorage.setItem("fromName", newName)
-    }
+  
+  const emailMap = {
+    bruno: "larissabragadesouza@gmail.com",
+    lari: "larissab.tarot@gmail.com"
   }
 
+ 
+  useEffect(() => {
+    const key = name.toLowerCase()
+
+    if (emailMap[key]) {
+      setEmail(emailMap[key])
+    }
+  }, [name])
+
   async function handleSend() {
-    if (!date || !email) {
+    if (!date || !name || !email) {
       alert("preenche tudo 😠")
       return
     }
 
-    const toName = "Moreco"
+    const normalizedName = name.toLowerCase()
+
+    let from_name = ""
+    let to_name = ""
+
+
+    if (normalizedName === "bruno") {
+      from_name = "bruno"
+      to_name = "moreco"
+    } else if (normalizedName === "lari") {
+      from_name = "lari"
+      to_name = "momo"
+    } else {
+      alert("nome inválido (use bruno ou lari)")
+      return
+    }
 
     try {
       await emailjs.send(
         "service_0o1s423",
         "template_1nm8dng",
         {
-          from_name: fromName,
-          to_name: toName,
-          date: date,
+          from_name,
+          to_name,
+          date,
           to_email: email
         },
         "5wPKM0CLF7UUXsOXu"
       )
 
-      alert(`convite enviado 💌 de ${fromName} para ${toName}`)
+      alert(`convite enviado 💌 de ${from_name} para ${to_name}`)
     } catch (error) {
       console.log(error)
       alert("deu erro 😭")
@@ -75,48 +79,41 @@ export default function DateInvite() {
           color: "#ff4f93",
           fontSize: "12px",
           textAlign: "center",
-          marginBottom: "10px"
+          marginBottom: "20px"
         }}
       >
         convidar para um encontro
       </h2>
 
-      <p
-        style={{
-          color: "white",
-          fontSize: "12px",
-          textAlign: "center",
-          marginBottom: "10px"
-        }}
-      >
-        você está enviando como: <b>{fromName}</b>
-      </p>
-
-      <button
-        onClick={changeName}
-        style={{
-          width: "100%",
-          marginBottom: "10px"
-        }}
-      >
-        trocar meu nome
-      </button>
-
+      {/* NOME */}
       <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
+        type="text"
+        placeholder="digite seu nome (bruno ou lari)"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
         style={{
           width: "97%",
           marginBottom: "10px"
         }}
       />
 
+      {/* EMAIL (auto preenchido, mas editável se quiser) */}
       <input
         type="email"
-        placeholder="email do momo"
+        placeholder="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        style={{
+          width: "97%",
+          marginBottom: "10px"
+        }}
+      />
+
+      {/* DATA */}
+      <input
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
         style={{
           width: "97%",
           marginBottom: "10px"
