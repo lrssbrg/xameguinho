@@ -8,7 +8,7 @@ export default function DateInvite() {
 
   const emailMap = {
     bruno: "larissabragadesouza00@gmail.com",
-    lari: "larissab.tarot@gmail.com"
+    lari: "contato@martinsbruno.com"
   }
 
   function handleNameChange(e) {
