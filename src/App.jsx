@@ -4,34 +4,17 @@ import SaudadeMeter from "./components/SaudadeMeter"
 import DateInvite from "./components/DateInvite"
 
 export default function App() {
-  const containerStyle = {
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    paddingTop: "40px",
-    paddingBottom: "40px",
-    paddingLeft: "12px",
-    paddingRight: "12px",
-    boxSizing: "border-box"
-  }
-
-  const gridStyle = {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-    gap: "30px",
-    width: "100%",
-    maxWidth: "660px",
-    marginBottom: "20px"
-  }
-
-  const saudadeGridStyle = {
-    ...gridStyle,
-    marginTop: "20px"
-  }
-
   return (
-    <div style={containerStyle}>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        paddingTop: "40px",
+        paddingBottom: "40px"
+      }}
+    >
       <h1
         style={{
           fontSize: "32px",
@@ -55,7 +38,17 @@ export default function App() {
       </p>
 
       {/* CONTADORES */}
-      <div style={gridStyle}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: "60px",
+          width: "100%",
+          marginLeft: "-45px",
+          maxWidth: "660px",
+          marginBottom: "20px"
+        }}
+      >
         <BeijinhosCounter
           title="beijinho que o momo me deve"
           storageKey="momo"
@@ -71,7 +64,18 @@ export default function App() {
       <DaysCounter />
 
       {/* SAUDADE */}
-      <div style={saudadeGridStyle}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: "60px",
+          width: "100%",
+          maxWidth: "660px",
+          marginTop: "20px",
+          marginLeft: "-45px",
+          marginBottom: "20px"
+        }}
+      >
         <SaudadeMeter
           title="saudade do moreco"
           subtitle="assinado: bruno"
