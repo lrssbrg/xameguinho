@@ -6,7 +6,7 @@ export default function DateInvite() {
   const [email, setEmail] = useState("")
   const [fromName, setFromName] = useState("")
 
-  // pega nome salvo (ou pede uma vez)
+  // carrega nome salvo
   useEffect(() => {
     const savedName = localStorage.getItem("fromName")
 
@@ -14,6 +14,7 @@ export default function DateInvite() {
       setFromName(savedName)
     } else {
       const name = prompt("Qual seu nome? 💌")
+
       if (name) {
         setFromName(name)
         localStorage.setItem("fromName", name)
@@ -21,13 +22,22 @@ export default function DateInvite() {
     }
   }, [])
 
+  // trocar nome manualmente (corrige erro de "ficou preso Lari")
+  function changeName() {
+    const newName = prompt("Novo nome? 💌")
+
+    if (newName) {
+      setFromName(newName)
+      localStorage.setItem("fromName", newName)
+    }
+  }
+
   async function handleSend() {
     if (!date || !email) {
       alert("preenche tudo 😠")
       return
     }
 
-    // destinatário fixo (mude se quiser)
     const toName = "Moreco"
 
     try {
@@ -42,8 +52,6 @@ export default function DateInvite() {
         },
         "5wPKM0CLF7UUXsOXu"
       )
-
-      localStorage.setItem("date", date)
 
       alert(`convite enviado 💌 de ${fromName} para ${toName}`)
     } catch (error) {
@@ -67,16 +75,32 @@ export default function DateInvite() {
           color: "#ff4f93",
           fontSize: "12px",
           textAlign: "center",
-          lineHeight: "1.8",
-          marginBottom: "20px"
+          marginBottom: "10px"
         }}
       >
         convidar para um encontro
       </h2>
 
-      <p style={{ color: "white", fontSize: "12px", textAlign: "center" }}>
+      <p
+        style={{
+          color: "white",
+          fontSize: "12px",
+          textAlign: "center",
+          marginBottom: "10px"
+        }}
+      >
         você está enviando como: <b>{fromName}</b>
       </p>
+
+      <button
+        onClick={changeName}
+        style={{
+          width: "100%",
+          marginBottom: "10px"
+        }}
+      >
+        trocar meu nome
+      </button>
 
       <input
         type="date"

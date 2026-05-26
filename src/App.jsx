@@ -1,9 +1,28 @@
+import { useState, useEffect } from "react"
 import BeijinhosCounter from "./components/BeijinhosCounter"
 import DaysCounter from "./components/DaysCounter"
 import SaudadeMeter from "./components/SaudadeMeter"
 import DateInvite from "./components/DateInvite"
 
 export default function App() {
+  const [fromName, setFromName] = useState("")
+
+  // pergunta o nome só uma vez
+  useEffect(() => {
+    const savedName = localStorage.getItem("fromName")
+
+    if (savedName) {
+      setFromName(savedName)
+    } else {
+      const name = prompt("Qual seu nome? 💌")
+
+      if (name) {
+        setFromName(name)
+        localStorage.setItem("fromName", name)
+      }
+    }
+  }, [])
+
   return (
     <div
       style={{
@@ -37,6 +56,13 @@ export default function App() {
         sua fonte oficial de monitoramento romântico
       </p>
 
+      {/* mostra quem está usando */}
+      {fromName && (
+        <p style={{ color: "white", fontSize: "12px", marginBottom: "20px" }}>
+          enviando como: <b>{fromName}</b>
+        </p>
+      )}
+
       {/* CONTADORES */}
 
       <div
@@ -63,7 +89,6 @@ export default function App() {
       </div>
 
       {/* DAYS */}
-
       <DaysCounter />
 
       {/* SAUDADE */}
@@ -94,9 +119,8 @@ export default function App() {
         />
       </div>
 
-      {/* DATE */}
-
-      <DateInvite />
+      {/* DATE - AQUI ESTÁ A CORREÇÃO PRINCIPAL */}
+      <DateInvite fromName={fromName} />
     </div>
   )
 }
