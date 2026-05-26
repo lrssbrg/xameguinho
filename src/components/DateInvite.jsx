@@ -6,13 +6,11 @@ export default function DateInvite() {
   const [date, setDate] = useState("")
   const [email, setEmail] = useState("")
 
-  // emails automáticos por nome
   const emailMap = {
-    bruno: "bruno@email.com",
-    lari: "lari@email.com"
+    bruno: "larissabragadesouza00@gmail.com",
+    lari: "larissab.tarot@gmail.com"
   }
 
-  // atualiza email automaticamente
   function handleNameChange(e) {
     const value = e.target.value
     setName(value)

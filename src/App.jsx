@@ -50,12 +50,12 @@ export default function App() {
         }}
       >
         <BeijinhosCounter
-          title="BEIJINHOS QUE O MOMO ME DEVE"
+          title="beijinho que o momo me deve"
           storageKey="momo"
         />
 
         <BeijinhosCounter
-          title="BEIJINHOS QUE EU DEVO PRO MOMO"
+          title="beijinhos que o moreco me deve"
           storageKey="eu"
         />
       </div>
