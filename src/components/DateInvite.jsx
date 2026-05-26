@@ -1,46 +1,50 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import emailjs from "@emailjs/browser"
 
 export default function DateInvite() {
-  const [date, setDate] = useState("")
   const [name, setName] = useState("")
+  const [date, setDate] = useState("")
   const [email, setEmail] = useState("")
 
-  
+  // emails automáticos por nome
   const emailMap = {
-    bruno: "larissabragadesouza@gmail.com",
-    lari: "larissab.tarot@gmail.com"
+    bruno: "bruno@email.com",
+    lari: "lari@email.com"
   }
 
- 
-  useEffect(() => {
-    const key = name.toLowerCase()
+  // atualiza email automaticamente
+  function handleNameChange(e) {
+    const value = e.target.value
+    setName(value)
+
+    const key = value.toLowerCase()
 
     if (emailMap[key]) {
       setEmail(emailMap[key])
+    } else {
+      setEmail("")
     }
-  }, [name])
+  }
 
   async function handleSend() {
-    if (!date || !name || !email) {
+    if (!name || !date || !email) {
       alert("preenche tudo 😠")
       return
     }
 
-    const normalizedName = name.toLowerCase()
+    const normalized = name.toLowerCase()
 
     let from_name = ""
     let to_name = ""
 
-
-    if (normalizedName === "bruno") {
+    if (normalized === "bruno") {
       from_name = "bruno"
       to_name = "moreco"
-    } else if (normalizedName === "lari") {
+    } else if (normalized === "lari") {
       from_name = "lari"
       to_name = "momo"
     } else {
-      alert("nome inválido (use bruno ou lari)")
+      alert("use apenas: bruno ou lari")
       return
     }
 
@@ -88,19 +92,19 @@ export default function DateInvite() {
       {/* NOME */}
       <input
         type="text"
-        placeholder="digite seu nome (bruno ou lari)"
+        placeholder="digite bruno ou lari"
         value={name}
-        onChange={(e) => setName(e.target.value)}
+        onChange={handleNameChange}
         style={{
           width: "97%",
           marginBottom: "10px"
         }}
       />
 
-      {/* EMAIL (auto preenchido, mas editável se quiser) */}
+      {/* EMAIL AUTO */}
       <input
         type="email"
-        placeholder="email"
+        placeholder="email (auto)"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         style={{
@@ -120,12 +124,7 @@ export default function DateInvite() {
         }}
       />
 
-      <button
-        onClick={handleSend}
-        style={{
-          width: "101%"
-        }}
-      >
+      <button onClick={handleSend} style={{ width: "101%" }}>
         ENVIAR 💌
       </button>
     </div>
